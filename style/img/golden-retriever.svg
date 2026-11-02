@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- Ears -->
+  <path d="M56 58 C22 60 8 108 18 148 C26 174 52 174 60 150 C66 124 68 92 72 68 Z" fill="#c4842b"/>
+  <path d="M144 58 C178 60 192 108 182 148 C174 174 148 174 140 150 C134 124 132 92 128 68 Z" fill="#c4842b"/>
+  <!-- Head -->
+  <path d="M100 26 C142 26 160 58 158 96 C156 132 140 162 100 168 C60 162 44 132 42 96 C40 58 58 26 100 26 Z" fill="#e2a64a"/>
+  <ellipse cx="100" cy="58" rx="28" ry="20" fill="#ecb963"/>
+  <!-- Muzzle -->
+  <ellipse cx="100" cy="134" rx="36" ry="28" fill="#f4d394"/>
+  <!-- Eyes -->
+  <ellipse cx="75" cy="83" rx="8" ry="3.5" fill="#f2c779"/>
+  <ellipse cx="125" cy="83" rx="8" ry="3.5" fill="#f2c779"/>
+  <circle cx="77" cy="98" r="8.5" fill="#3b2412"/>
+  <circle cx="123" cy="98" r="8.5" fill="#3b2412"/>
+  <circle cx="80" cy="95" r="2.8" fill="#fff"/>
+  <circle cx="126" cy="95" r="2.8" fill="#fff"/>
+  <!-- Tongue -->
+  <path d="M90 146 Q100 143 110 146 L110 160 Q100 172 90 160 Z" fill="#ef8585"/>
+  <path d="M100 148 L100 160" stroke="#d96a6a" stroke-width="2" stroke-linecap="round"/>
+  <!-- Nose and mouth -->
+  <path d="M87 118 Q100 111 113 118 Q113 129 100 133 Q87 129 87 118 Z" fill="#2e1b0e"/>
+  <ellipse cx="95" cy="118" rx="4" ry="2" fill="#5a3a24"/>
+  <path d="M100 133 L100 142 M100 142 Q90 151 80 144 M100 142 Q110 151 120 144" stroke="#2e1b0e" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <!-- Collar and tag -->
+  <path d="M60 160 Q100 182 140 160 L138 172 Q100 194 62 172 Z" fill="#c0392b"/>
+  <circle cx="100" cy="188" r="8" fill="#d9a441" stroke="#a97a24" stroke-width="2"/>
+</svg>

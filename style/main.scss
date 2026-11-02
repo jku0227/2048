@@ -5,19 +5,24 @@ $field-width: 500px;
 $grid-spacing: 15px;
 $grid-row-cells: 4;
 $tile-size: ($field-width - $grid-spacing * ($grid-row-cells + 1)) / $grid-row-cells;
-$tile-border-radius: 3px;
+$tile-border-radius: 8px;
 
 $mobile-threshold: $field-width + 20px;
 
-$text-color: #776E65;
-$bright-text-color: #f9f6f2;
+$text-color: #5b3a1e;
+$bright-text-color: #fff8ec;
 
-$tile-color: #eee4da;
-$tile-gold-color: #edc22e;
+$tile-color: #f3e3c8;
+$tile-gold-color: #d9a441;
 $tile-gold-glow-color: lighten($tile-gold-color, 15%);
 
 $game-container-margin-top: 40px;
-$game-container-background: #bbada0;
+$game-container-background: #8b5e3c;
+
+$merge-paw: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'%3E%3Cg fill='%23c0392b'%3E%3Cellipse cx='40' cy='50' rx='14' ry='12'/%3E%3Cellipse cx='22' cy='32' rx='6' ry='8'/%3E%3Cellipse cx='34' cy='22' rx='6' ry='8'/%3E%3Cellipse cx='46' cy='22' rx='6' ry='8'/%3E%3Cellipse cx='58' cy='32' rx='6' ry='8'/%3E%3C/g%3E%3C/svg%3E");
+
+// Faint repeating paw print for the page background
+$paw-pattern: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='%238b5e3c' fill-opacity='0.06'%3E%3Cellipse cx='40' cy='50' rx='12' ry='10'/%3E%3Cellipse cx='26' cy='34' rx='5' ry='7'/%3E%3Cellipse cx='36' cy='27' rx='5' ry='7'/%3E%3Cellipse cx='46' cy='27' rx='5' ry='7'/%3E%3Cellipse cx='55' cy='34' rx='5' ry='7'/%3E%3C/g%3E%3C/svg%3E");
 
 $transition-speed: 100ms;
 
@@ -25,14 +30,42 @@ html, body {
   margin: 0;
   padding: 0;
 
-  background: #faf8ef;
+  background: transparent;
   color: $text-color;
   font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif;
   font-size: 18px;
 }
 
+html {
+  background: #fdf6e9 $paw-pattern;
+}
+
 body {
   margin: 80px 0;
+
+  // Golden retrievers watching the game from the background
+  &:before {
+    content: "";
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: url("img/golden-retriever.svg") no-repeat left -40px bottom -20px / 320px,
+                url("img/golden-retriever.svg") no-repeat right -30px bottom 40px / 260px,
+                url("img/golden-retriever.svg") no-repeat right 8% top 30px / 140px,
+                url("img/golden-retriever.svg") no-repeat left 6% top 22% / 170px;
+    opacity: .2;
+  }
+}
+
+// Wide screens have room beside the board, so the dogs can be fully visible
+@media screen and (min-width: 1100px) {
+  body:before {
+    opacity: .9;
+  }
 }
 
 .heading {
@@ -45,6 +78,12 @@ h1.title {
   margin: 0;
   display: block;
   float: left;
+
+  &:after {
+    content: " \1F43E";
+    font-size: 40px;
+    vertical-align: middle;
+  }
 }
 
 @include keyframes(move-up) {
@@ -90,6 +129,7 @@ h1.title {
     line-height: 13px;
     text-align: center;
     color: $tile-color;
+    white-space: nowrap;
   }
 
   .score-addition {
@@ -107,11 +147,11 @@ h1.title {
 }
 
 .score-container:after {
-  content: "Score";
+  content: "Treats";
 }
 
 .best-container:after {
-  content: "Best";
+  content: "Best Boy";
 }
 
 p {
@@ -159,7 +199,7 @@ hr {
 @mixin button {
   display: inline-block;
   background: darken($game-container-background, 20%);
-  border-radius: 3px;
+  border-radius: $tile-border-radius;
   padding: 0 20px;
   text-decoration: none;
   color: $bright-text-color;
@@ -212,6 +252,13 @@ hr {
         height: 60px;
         line-height: 60px;
         margin-top: 222px;
+
+        &:before, &:after {
+          content: "\1F43E";
+          font-size: 40px;
+          margin: 0 12px;
+          vertical-align: middle;
+        }
         // height: $field-width;
         // line-height: $field-width;
       }
@@ -338,10 +385,10 @@ hr {
   // Colors for all 11 states, false = no special color
   $special-colors: false false, // 2
                    false false, // 4
-                   #f78e48 true, // 8
-                   #fc5e2e true, // 16
-                   #ff3333 true, // 32
-                   #ff0000 true, // 64
+                   #c8925a true, // 8
+                   #b8733a true, // 16
+                   #c0392b true, // 32
+                   #9c3d1f true, // 64
                    false true, // 128
                    false true, // 256
                    false true, // 512
@@ -404,7 +451,7 @@ hr {
   // Super tiles (above 2048)
   &.tile-super .tile-inner {
     color: $bright-text-color;
-    background: mix(#333, $tile-gold-color, 95%);
+    background: mix(#3b2412, $tile-gold-color, 95%);
 
     font-size: 30px;
 
@@ -436,19 +483,59 @@ hr {
     @include transform(scale(0));
   }
 
-  50% {
-    @include transform(scale(1.2));
+  40% {
+    @include transform(scale(1.35) rotate(-10deg));
+  }
+
+  60% {
+    @include transform(scale(1.2) rotate(8deg));
+  }
+
+  80% {
+    @include transform(scale(1.08) rotate(-4deg));
   }
 
   100% {
-    @include transform(scale(1));
+    @include transform(scale(1) rotate(0));
+  }
+}
+
+// A paw print floats up out of every merge
+@include keyframes(paw-float) {
+  0% {
+    opacity: 0;
+    @include transform(translate(-50%, 0) scale(.4));
+  }
+
+  25% {
+    opacity: 1;
+    @include transform(translate(-50%, -30px) scale(1.2));
+  }
+
+  100% {
+    opacity: 0;
+    @include transform(translate(-50%, -100px) scale(1.5) rotate(15deg));
   }
 }
 
 .tile-merged .tile-inner {
   z-index: 20;
-  @include animation(pop 200ms ease $transition-speed);
+  @include animation(pop 400ms ease $transition-speed);
   @include animation-fill-mode(backwards);
+}
+
+.tile.tile-merged:after {
+  content: "";
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  width: 56px;
+  height: 56px;
+  z-index: 30;
+  pointer-events: none;
+  background: $merge-paw no-repeat center / contain;
+  @include animation(paw-float 800ms ease-out $transition-speed);
+  @include animation-fill-mode(both);
 }
 
 .above-game {
@@ -474,12 +561,12 @@ hr {
 
 @include smaller($mobile-threshold) {
   // Redefine variables for smaller screens
-  $field-width: 280px;
-  $grid-spacing: 10px;
-  $grid-row-cells: 4;
-  $tile-size: ($field-width - $grid-spacing * ($grid-row-cells + 1)) / $grid-row-cells;
-  $tile-border-radius: 3px;
-  $game-container-margin-top: 17px;
+  $field-width: 280px !global;
+  $grid-spacing: 10px !global;
+  $grid-row-cells: 4 !global;
+  $tile-size: ($field-width - $grid-spacing * ($grid-row-cells + 1)) / $grid-row-cells !global;
+  $tile-border-radius: 8px !global;
+  $game-container-margin-top: 17px !global;
 
   html, body {
     font-size: 15px;
@@ -493,6 +580,10 @@ hr {
   h1.title {
     font-size: 27px;
     margin-top: 15px;
+
+    &:after {
+      font-size: 18px;
+    }
   }
 
   .container {
@@ -540,6 +631,11 @@ hr {
       height: 30px !important;
       line-height: 30px !important;
       margin-top: 90px !important;
+
+      &:before, &:after {
+        font-size: 20px;
+        margin: 0 6px;
+      }
     }
 
     .lower {
